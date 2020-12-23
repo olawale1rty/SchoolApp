@@ -2,8 +2,28 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from .models import *
 
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+
+def loginPage(request):
+	if request.user.is_authenticated:
+		return redirect('home')
+	else:
+		if request.method == 'POST':
+			username = request.POST.get('username')
+			password =request.POST.get('password')
+
+			user = authenticate(request, username=username, password=password)
+
+			if user is not None:
+				login(request, user)
+				return redirect('home')
+			else:
+				messages.info(request, 'Username OR password is incorrect')
+
+		context = {}
+		return render(request, 'workshop/login.html', context)
 
 def home(request):
 	return render(request,'workshop/home.html')
@@ -27,24 +47,7 @@ def registerPage(request):
 		return render(request, 'workshop/register.html', context)
 
 
-def loginPage(request):
-	if request.user.is_authenticated:
-		return redirect('home')
-	else:
-		if request.method == 'POST':
-			username = request.POST.get('username')
-			password =request.POST.get('password')
 
-			user = authenticate(request, username=username, password=password)
-
-			if user is not None:
-				login(request, user)
-				return redirect('home')
-			else:
-				messages.info(request, 'Username OR password is incorrect')
-
-		context = {}
-		return render(request, 'workshop/login.html', context)
 
 def logoutUser(request):
 	logout(request)
@@ -74,6 +77,9 @@ def profile(request):
     }
 
     return render(request, 'workshop/profile.html', context)
-
-    
-            
+def workshop(request):
+    context={
+		     'workshops':Workshop.objects.all()
+	}
+    return render(request,'workshop/workshop.html',context)
+         
