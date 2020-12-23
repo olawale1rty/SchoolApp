@@ -5,11 +5,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-	path('', views.home, name="home"),
+	path('', views.loginPage, name="login"), 
+	path('home/', views.home, name="home"),
 	path('register/', views.registerPage, name="register"),
-	path('login/', views.loginPage, name="login"),  
+	 
 	path('logout/', views.logoutUser, name="logout"),
-	path('profile/',views.profile,name='profile')
+	path('profile/',views.profile,name='profile'),
+	path('workshop/',views.workshop,name='workshopsi'),
+
 ]
 
 if settings.DEBUG:
