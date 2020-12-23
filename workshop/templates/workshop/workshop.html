@@ -1,0 +1,22 @@
+{% extends "workshop/base.html" %}
+
+{% block content %}
+<div class="container">
+    
+    {%for workshop in workshop%}
+    <div class="card">
+        <div class="card-body">
+            <div class="cardtitle">{{workshop.Name_of_workshop}} </div>
+        <div class="card-text">
+            <h5>its is organized by {{workshop.Organized_by}}</h5>
+            <p>any doubts please contact :-{{workshop.Any_queeries}}</p>
+            <p>posted on:-{{workshop.Date_of_published}}</p>
+            <p>Even on:-{{workshop.Date_of_conduction}}</p>
+            <p>{{workshop.Information}}</p>
+        </div>
+    </div>
+{%endfor%}
+</div>
+
+
+{% endblock content %}
