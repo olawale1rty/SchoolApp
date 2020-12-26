@@ -1,4 +1,39 @@
 {% extends "workshop/base.html" %}
 {% block content %}
-<h1>hai</h1>
+<div class="container">
+    {% if workshops%}
+
+    {% if messages %}
+            <div class="mt-4">
+                {% for message in messages %}
+                <div class="d-flex justify-content-center links">
+                    {{ message }}
+                </div>  
+                {% endfor %}        
+            </div>
+            {% endif %}
+
+    {%for workshop in workshops%}
+    <div class="card">
+        <div class="card-body">
+            <div class="cardtitle"><h4>{{workshop.Name_of_workshop}} </h4></div>
+        <div class="card-text">
+            <h6>Its is organized by {{workshop.Organized_by}}</h6>
+            <p>Any doubts please contact:- {{workshop.Any_queeries}}</p>
+            <p>Posted on:- {{workshop.Date_of_published}}</p>
+            <p>Event on:- {{workshop.Date_of_conduction}}</p>
+            <p>{{workshop.Information}}</p>
+        </div>
+        <div>
+        	<a href="{% url 'workshop' %}" class="ml-2">Register</a>
+        </div>
+
+    </div>
+    {%endfor%}
+    {%endif%}
+</div>
 {% endblock content %}
+
+{% block script %}
+      
+{% endblock script %}

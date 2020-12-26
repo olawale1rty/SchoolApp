@@ -1,22 +1,36 @@
 {% extends "workshop/base.html" %}
 
 {% block content %}
-<div class="container">
-    
-    {%for workshop in workshop%}
-    <div class="card">
-        <div class="card-body">
-            <div class="cardtitle">{{workshop.Name_of_workshop}} </div>
-        <div class="card-text">
-            <h5>its is organized by {{workshop.Organized_by}}</h5>
-            <p>any doubts please contact :-{{workshop.Any_queeries}}</p>
-            <p>posted on:-{{workshop.Date_of_published}}</p>
-            <p>Even on:-{{workshop.Date_of_conduction}}</p>
-            <p>{{workshop.Information}}</p>
-        </div>
-    </div>
-{%endfor%}
-</div>
+    {% load crispy_forms_tags %}
+        <div class="d-flex justify-content-center h-100">
 
+            <div class="user_card">
+                <div class="d-flex justify-content-center">
+                    <h3 id="form-title">REGISTER WORKSHOP</h3>
+                </div>
+                {% if messages %}
+                <div class="mt-4">
+                    {% for message in messages %}
+                    <div class="d-flex justify-content-center links">
+                        {{ message }}
+                    </div>  
+                    {% endfor %}        
+                </div>
+                {% endif %}
+                <div><h5>Name Of Workshop</h5></div>
+                <div class="d-flex justify-content-center form_container">
+
+                    <form method="POST">
+                    {% csrf_token %}
+                        {{ form|crispy }}
+
+                            <div class="d-flex justify-content-center mt-3 login_container">
+                                <input class="btn login_btn" type="submit" value="REGISTER">
+                            </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
 
 {% endblock content %}

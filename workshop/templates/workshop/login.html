@@ -1,3 +1,4 @@
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html>
     
@@ -78,27 +79,26 @@
 <body>
 	<div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
+
 			<div class="user_card">
 				<div class="d-flex justify-content-center">
-
-
 					<h3 id="form-title">LOGIN</h3>
 				</div>
+				{% if messages %}
+				<div class="mt-4">
+					{% for message in messages %}
+					<div class="d-flex justify-content-center links">
+						{{ message }}
+					</div>	
+					{% endfor %}		
+				</div>
+				{% endif %}
+
 				<div class="d-flex justify-content-center form_container">
-					<form method="POST" action="">
+					
+					<form method="POST">
 					{% csrf_token %}
-						<div class="input-group mb-3">
-							<div class="input-group-append">
-								<span class="input-group-text"><i class="fas fa-user"></i></span>
-							</div>
-							<input type="text" name="username" placeholder="Username..." class="form-control">
-						</div>
-						<div class="input-group mb-2">
-							<div class="input-group-append">
-								<span class="input-group-text"><i class="fas fa-key"></i></span>
-							</div>
-								<input type="password" name="password" placeholder="Password..." class="form-control" >
-						</div>
+						{{ form|crispy }}
 
 							<div class="d-flex justify-content-center mt-3 login_container">
 				 				<input class="btn login_btn" type="submit" value="Login">
@@ -110,6 +110,9 @@
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
 						Don't have an account? <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
+					</div>
+					<div class="d-flex justify-content-center links">
+						 <a href="{% url 'password_reset' %}" class="ml-2">Forgot password?</a>
 					</div>
 			
 				</div>
